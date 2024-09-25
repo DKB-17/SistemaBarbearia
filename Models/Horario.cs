@@ -1,0 +1,21 @@
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+using System.Data;
+
+namespace SistemaBarbearia.Models
+{
+    [Table("Horarios")]
+    public class Horario
+    {
+        [Display(Name = "ID: ")]
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int id { get; set; }
+
+        [Display(Name = "INICIO: ")]
+        public DateTime inicio { get; set; } = DateTime.Now;
+
+        [Display(Name = "FIM: ")]
+        public DateTime fim {  get; set; } 
+    }
+}
