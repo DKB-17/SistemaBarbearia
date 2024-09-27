@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using Microsoft.EntityFrameworkCore;
+using SistemaBarbearia.Models;
 
 namespace SistemaBarbearia.Models
 {
@@ -8,5 +9,8 @@ namespace SistemaBarbearia.Models
         public Contexto(DbContextOptions<Contexto> options) : base(options) { }
 
         public DbSet<Estado> Estados { get; set; }
+        public DbSet<SistemaBarbearia.Models.Cidade> Cidade { get; set; }
+        public DbSet<SistemaBarbearia.Models.Agenda> Agenda { get; set; }
+        public DbSet<SistemaBarbearia.Models.Barbeiro> Barbeiro { get; set; }
     }
 }
