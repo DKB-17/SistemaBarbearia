@@ -12,6 +12,9 @@ namespace SistemaBarbearia.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
 
+        [StringLength(10)]
+        [Display(Name = "Descricao: ")]
+        public string descricao { get; set; }
 
         [Display(Name = "Valor: ")]
         public float valor { get; set; }
