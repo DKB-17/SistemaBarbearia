@@ -12,10 +12,10 @@ namespace SistemaBarbearia.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
 
-        [Display(Name = "INICIO: ")]
+        [Display(Name = "Inicio: ")]
         public DateTime inicio { get; set; } = DateTime.Now;
 
-        [Display(Name = "FIM: ")]
-        public DateTime fim {  get; set; } 
+        [Display(Name = "Fim: ")]
+        public DateTime fim { get; set; }
     }
 }

@@ -27,6 +27,7 @@ namespace SistemaBarbearia.Models
         public int servicoId { get; set; }
 
         [Display(Name = "Dia agendado: ")]
-        public DateTime dia_agendado { get; set; }
+        public DateTime diaAgendado { get; set; }
+
     }
 }

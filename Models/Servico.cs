@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
 namespace SistemaBarbearia.Models
@@ -11,9 +12,6 @@ namespace SistemaBarbearia.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
 
-        [StringLength(10)]
-        [Display(Name = "Descrição: ")]
-        public string descricao {  get; set; }
 
         [Display(Name = "Valor: ")]
         public float valor { get; set; }
