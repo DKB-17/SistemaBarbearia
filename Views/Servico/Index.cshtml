@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SistemaBarbearia.Models.Cidade>
+﻿@model IEnumerable<SistemaBarbearia.Models.Servico>
 
 @{
     ViewData["Title"] = "Index";
@@ -14,14 +14,12 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.estado)
+                @Html.DisplayNameFor(model => model.descricao)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.estado.id)
+                @Html.DisplayNameFor(model => model.valor)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.nome)
-            </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -29,13 +27,10 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.estado)
+                    @Html.DisplayFor(modelItem => item.descricao)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.estado.id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.nome)
+                    @Html.DisplayFor(modelItem => item.valor)
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |

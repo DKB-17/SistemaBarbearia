@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SistemaBarbearia.Models.Cidade>
+﻿@model IEnumerable<SistemaBarbearia.Models.Cliente>
 
 @{
     ViewData["Title"] = "Index";
@@ -14,13 +14,19 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.estado)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.estado.id)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.cidade)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.cidade.id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.cpf)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.telefone)
             </th>
         </tr>
     </thead>
@@ -29,13 +35,19 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.estado)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.estado.id)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.cidade)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.cidade.id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.cpf)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.telefone)
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
