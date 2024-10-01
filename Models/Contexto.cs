@@ -8,9 +8,11 @@ namespace SistemaBarbearia.Models
     {
         public Contexto(DbContextOptions<Contexto> options) : base(options) { }
 
-        public DbSet<Estado> Estados { get; set; }
-        public DbSet<SistemaBarbearia.Models.Cidade> Cidade { get; set; }
-        public DbSet<SistemaBarbearia.Models.Agenda> Agenda { get; set; }
-        public DbSet<SistemaBarbearia.Models.Barbeiro> Barbeiro { get; set; }
+        public DbSet<Agenda> Agendas { get; set; }
+        public DbSet<Barbeiro> Barbeiros { get; set; }
+        public DbSet<Cliente> Clientes { get; set; }
+        public DbSet<Horario> Horarios { get; set; }
+        public DbSet<Servico> Servicos { get; set; }
+        public DbSet<Caixa> Caixa { get; set; }
     }
 }

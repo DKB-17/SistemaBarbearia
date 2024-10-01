@@ -12,23 +12,22 @@ namespace SistemaBarbearia.Models
         public int id { get; set; }
 
         [Required(ErrorMessage = "Campo obrigatorio")]
-        [StringLength(50, ErrorMessage = "Tamanho maximo de 50 caracteres")]
+        [StringLength(70, ErrorMessage = "Tamanho maximo de 70 caracteres")]
         [Display(Name = "Nome: ")]
         public string nome { get; set; }
 
-        [Display(Name = "Cidade: ")]
-        public Cidade cidade { get; set; }
-        [Display(Name = "Cidade: ")]
-        public int cidadeId { get; set; }
+        [Required(ErrorMessage = "Campo obrigatorio")]
+        [StringLength(14)]
+        [Display(Name = "Cpf: ")]
+        public string cpf { get; set; }
 
         [Required(ErrorMessage = "Campo obrigatorio")]
-        [StringLength(11)]
-        [Display(Name = "CPF: ")]
-        public char[] cpf { get; set; } = new char[11];
+        [StringLength(14)]
+        [Display(Name = "Telefone: ")]
+        [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"^\(?([0-9]{2})\)?[-. ]?([0-9]{5})[-. ]?([0-9]{4})$")]
+        public string telefone { get; set; }
 
-        [Required(ErrorMessage = "Campo obrigatorio")]
-        [StringLength(11)]
-        [Display(Name = "FONE: ")]
-        public char[] telefone { get; set; } = new char[11];
+        public ICollection<Horario> horarios { get; set; }
     }
 }

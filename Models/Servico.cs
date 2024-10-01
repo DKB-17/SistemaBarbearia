@@ -12,11 +12,17 @@ namespace SistemaBarbearia.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
 
-        [StringLength(10)]
+        [Required]
+        [StringLength(50)]
         [Display(Name = "Descricao: ")]
         public string descricao { get; set; }
 
+        [Required]
         [Display(Name = "Valor: ")]
-        public float valor { get; set; }
+        public double valor { get; set; }
+
+        [Required]
+        [Display(Name = "Tempo: ")]
+        public TimeOnly minutos { get; set; }
     }
 }

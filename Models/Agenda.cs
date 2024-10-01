@@ -22,12 +22,16 @@ namespace SistemaBarbearia.Models
         public int horarioId { get; set; }
 
         [Display(Name = "Servico: ")]
-        public Servico servico { get; set; }
-        [Display(Name = "Servico: ")]
-        public int servicoId { get; set; }
+        public ICollection<Servico> servicos { get; set; } = new List<Servico>();
 
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Dia agendado: ")]
         public DateTime diaAgendado { get; set; }
+
+
+        public int idCaixa { get; set; }
+        public Caixa caixa { get; set; }
 
     }
 }

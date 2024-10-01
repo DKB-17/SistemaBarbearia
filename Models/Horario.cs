@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
+using Humanizer;
+using SistemaBarbearia.Controllers;
 
 namespace SistemaBarbearia.Models
 {
@@ -12,10 +14,16 @@ namespace SistemaBarbearia.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
 
+        [Display(Name = "Barbeiro")]
+        public int barbeiroID { get; set; }
+        [Display(Name = "Barbeiro")]
+        public Barbeiro barbeiro { get; set; }
+
+
         [Display(Name = "Inicio: ")]
-        public DateTime inicio { get; set; } = DateTime.Now;
+        public TimeOnly inicio { get; set; }
 
         [Display(Name = "Fim: ")]
-        public DateTime fim { get; set; }
+        public TimeOnly fim { get; set; }
     }
 }
