@@ -14,12 +14,6 @@ namespace SistemaBarbearia.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
 
-        [Display(Name = "Barbeiro")]
-        public int barbeiroID { get; set; }
-        [Display(Name = "Barbeiro")]
-        public Barbeiro barbeiro { get; set; }
-
-
         [Display(Name = "Inicio: ")]
         public TimeOnly inicio { get; set; }
 

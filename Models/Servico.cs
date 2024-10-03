@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
 
 namespace SistemaBarbearia.Models
 {
@@ -22,7 +21,9 @@ namespace SistemaBarbearia.Models
         public double valor { get; set; }
 
         [Required]
-        [Display(Name = "Tempo: ")]
-        public TimeOnly minutos { get; set; }
+        [Display(Name = "Tempo para fazer: ")]
+        public int minutos { get; set; }
+
+        public ICollection<ServicoAgenda> servicosAgendas { get; set; }
     }
 }

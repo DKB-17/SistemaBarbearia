@@ -28,6 +28,5 @@ namespace SistemaBarbearia.Models
         [RegularExpression(@"^\(?([0-9]{2})\)?[-. ]?([0-9]{5})[-. ]?([0-9]{4})$")]
         public string telefone { get; set; }
 
-        public ICollection<Horario> horarios { get; set; }
     }
 }

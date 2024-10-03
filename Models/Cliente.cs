@@ -27,5 +27,7 @@ namespace SistemaBarbearia.Models
         [DataType(DataType.PhoneNumber)]
         [RegularExpression(@"^\(?([0-9]{2})\)?[-. ]?([0-9]{5})[-. ]?([0-9]{4})$")]
         public string telefone { get; set; }
+
+        public ICollection<Agenda> Agendas { get; set; }
     }
 }
