@@ -14,6 +14,6 @@ namespace SistemaBarbearia.Models
         public DbSet<Cliente> Clientes { get; set; }
         public DbSet<Horario> Horarios { get; set; }
         public DbSet<Servico> Servicos { get; set; }
-        public DbSet<Caixa> Caixa { get; set; }
+        public DbSet<Caixa> Caixas { get; set; }
     }
 }
