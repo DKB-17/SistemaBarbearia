@@ -8,6 +8,7 @@ namespace SistemaBarbearia.Models
     {
         public Contexto(DbContextOptions<Contexto> options) : base(options) { }
 
+        public DbSet<ServicoAgenda> ServicosAgendas { get; set; }
         public DbSet<Agenda> Agendas { get; set; }
         public DbSet<Barbeiro> Barbeiros { get; set; }
         public DbSet<Cliente> Clientes { get; set; }

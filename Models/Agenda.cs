@@ -6,10 +6,18 @@ namespace SistemaBarbearia.Models
     [Table("Agendas")]
     public class Agenda
     {
+
+        public enum trabalho { Feito, Falta, Remarcado, Cancelado}
+
         [Display(Name = "ID: ")]
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
+
+        [Display(Name = "Babeiro: ")]
+        public Barbeiro barbeiro { get; set; }
+        [Display(Name = "Babeiro: ")]
+        public int barbeiroID { get; set; }
 
         [Display(Name = "Cliente: ")]
         public Cliente cliente { get; set; }
@@ -21,17 +29,21 @@ namespace SistemaBarbearia.Models
         [Display(Name = "Horario: ")]
         public int horarioId { get; set; }
 
-        [Display(Name = "Servico: ")]
-        public ICollection<Servico> servicos { get; set; } = new List<Servico>();
-
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Dia agendado: ")]
         public DateTime diaAgendado { get; set; }
 
+        [Display(Name = "Trabalho")]
+        public trabalho trabalhoStatus { get; set; }
+
+        public double valor_total { get; set; }
+        public int tempo_total { get; set; }
 
         public int idCaixa { get; set; }
         public Caixa caixa { get; set; }
+
+        public ICollection<ServicoAgenda> servicosAgendas { get; set; }
 
     }
 }

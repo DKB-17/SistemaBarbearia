@@ -8,6 +8,7 @@ namespace SistemaBarbearia.Models
         public int id { get; set; }
         public DateOnly dia { get; set; }
         public float lucro { get; set; }
+
         public ICollection<Agenda> Agendas { get; set; } = new List<Agenda>();
     }
 }
