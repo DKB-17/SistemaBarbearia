@@ -1,15 +1,53 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
 
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Barbearia Estilo Antigo</title>
+    <link rel="stylesheet" href="~/css/styles.css">
 </head>
 <body>
-    <h1> </h1>
+
+    <section id="historia">
+        <div class="container">
+            <h2>Nossa História</h2>
+            <p>A Barbearia Estilo Antigo foi fundada em 1995 com o propósito de resgatar a tradição e o estilo clássico de cortes masculinos. Inspirada nas barbearias dos anos 50, nosso estabelecimento combina um ambiente retrô com as técnicas modernas de corte. Ao longo dos anos, nos tornamos um ponto de encontro para aqueles que valorizam a elegância atemporal.</p>
+            <p>Com uma equipe de barbeiros experientes, nossa missão é proporcionar uma experiência única, que vai além de um simples corte de cabelo. Aqui, o cliente encontra qualidade, tradição e um atendimento personalizado.</p>
+        </div>
+    </section>
+
+    <section id="cortes">
+        <div class="container">
+            <h2>Cortes de Cabelo e Suas Histórias</h2>
+
+            <div class="corte">
+                <h3>Corte Clássico – Pompadour</h3>
+                <p>O corte Pompadour, popularizado por Elvis Presley nos anos 50, é um símbolo de rebeldia e estilo. Com o topo volumoso e as laterais mais curtas, ele oferece uma combinação de elegância e atitude. Hoje, esse corte é usado por homens que buscam um visual arrojado e retrô.</p>
+            </div>
+
+            <div class="corte">
+                <h3>Corte Desconectado – Undercut</h3>
+                <p>O Undercut é um corte moderno que ganhou popularidade no início do século 21. Caracterizado por laterais e nuca raspadas, enquanto o topo é mantido mais longo, ele é um corte versátil, podendo ser estilizado de diversas maneiras, refletindo tanto o estilo casual quanto o sofisticado.</p>
+            </div>
+
+            <div class="corte">
+                <h3>Corte Militar</h3>
+                <p>O corte militar tem suas raízes nas forças armadas e é conhecido por sua praticidade e manutenção simples. Esse corte é tradicionalmente curto e uniforme, passando uma imagem de disciplina e força. Ainda hoje é escolhido por aqueles que preferem um visual limpo e minimalista.</p>
+            </div>
+
+            <div class="corte">
+                <h3>Corte Social</h3>
+                <p>O corte social é um clássico que nunca sai de moda. Ele é caracterizado pelo cabelo curto e bem alinhado, ideal para ambientes formais e profissionais. Popular entre homens de negócios e aqueles que preferem um estilo mais discreto, é uma escolha segura para qualquer ocasião.</p>
+            </div>
+        </div>
+    </section>
+
 </body>
 </html>
