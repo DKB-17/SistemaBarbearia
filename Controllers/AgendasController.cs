@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SistemaBarbearia.Models;
+using static SistemaBarbearia.Models.Agenda;
 
 namespace SistemaBarbearia.Controllers
 {
@@ -49,9 +50,13 @@ namespace SistemaBarbearia.Controllers
         // GET: Agendas/Create
         public IActionResult Create()
         {
-            ViewData["barbeiroID"] = new SelectList(_context.Barbeiros, "id", "cpf");
+
+            var sTrabalho = Enum.GetValues(typeof(trabalho)).Cast<trabalho>().Select(e => new SelectListItem { Value = e.ToString(), Text = e.ToString() });
+            ViewBag.sTrabalho = sTrabalho;
+
+            ViewData["barbeiroID"] = new SelectList(_context.Barbeiros, "id", "nome");
             ViewData["clienteId"] = new SelectList(_context.Clientes, "id", "cpf");
-            ViewData["horarioId"] = new SelectList(_context.Horarios, "id", "id");
+            ViewData["horarioId"] = new SelectList(_context.Horarios, "id", "inicio");
             return View();
         }
 
@@ -68,9 +73,9 @@ namespace SistemaBarbearia.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["barbeiroID"] = new SelectList(_context.Barbeiros, "id", "cpf", agenda.barbeiroID);
+            ViewData["barbeiroID"] = new SelectList(_context.Barbeiros, "id", "nome", agenda.barbeiroID);
             ViewData["clienteId"] = new SelectList(_context.Clientes, "id", "cpf", agenda.clienteId);
-            ViewData["horarioId"] = new SelectList(_context.Horarios, "id", "id", agenda.horarioId);
+            ViewData["horarioId"] = new SelectList(_context.Horarios, "id", "inicio", agenda.horarioId);
             return View(agenda);
         }
 
