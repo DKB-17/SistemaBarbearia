@@ -7,8 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="Views\Shared\img\logo_fundo_branco.png" />
-    <Content Include="Views\Shared\img\logo_sem_fundo.png" />
+    <Compile Remove="Views\Shared\img\**" />
+    <Content Remove="Views\Shared\img\**" />
+    <EmbeddedResource Remove="Views\Shared\img\**" />
+    <None Remove="Views\Shared\img\**" />
   </ItemGroup>
 
   <ItemGroup>
