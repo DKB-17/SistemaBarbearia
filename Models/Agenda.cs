@@ -38,7 +38,7 @@ namespace SistemaBarbearia.Models
         public trabalho trabalhoStatus { get; set; }
 
         public double valor_total { get; set; }
-        public int tempo_total { get; set; }
+        public double tempo_total { get; set; }
 
         public int idCaixa { get; set; }
         public Caixa caixa { get; set; }
