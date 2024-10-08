@@ -71,7 +71,13 @@ namespace SistemaBarbearia.Controllers
             {
                 _context.Add(agenda);
                 await _context.SaveChangesAsync();
+
+                if (agenda.trabalhoStatus == trabalho.Feito)
+                { 
+
+                }
                 return RedirectToAction(nameof(Index));
+                
             }
             ViewData["barbeiroID"] = new SelectList(_context.Barbeiros, "id", "nome", agenda.barbeiroID);
             ViewData["clienteId"] = new SelectList(_context.Clientes, "id", "cpf", agenda.clienteId);

@@ -48,10 +48,27 @@ namespace SistemaBarbearia.Controllers
             return View();
         }
 
-        // POST: Caixas/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Index
         [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Index(Caixa caixa)
+        {
+            caixa.dia = DateOnly.FromDateTime(DateTime.Now);
+
+            if (!CaixaExists(caixa.dia))
+            {
+                caixa.lucro = 0;
+                _context.Add(caixa);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
+            // POST: Caixas/Create
+            // To protect from overposting attacks, enable the specific properties you want to bind to.
+            // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+            [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("id,dia,lucro")] Caixa caixa)
         {
@@ -151,6 +168,11 @@ namespace SistemaBarbearia.Controllers
         private bool CaixaExists(int id)
         {
             return _context.Caixas.Any(e => e.id == id);
+        }
+
+        private bool CaixaExists(DateOnly data)
+        {
+            return _context.Caixas.Any(e => e.dia.Equals(data));
         }
     }
 }

@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SistemaBarbearia.Models;
 using System.Diagnostics;
+using System.Timers;
 
 namespace SistemaBarbearia.Controllers
 {
@@ -19,8 +20,11 @@ namespace SistemaBarbearia.Controllers
 
         public async Task<IActionResult> Index()
         {
+            
             return View(await _context.Horarios.ToListAsync());
+        
         }
+
 
         public IActionResult Privacy()
         {

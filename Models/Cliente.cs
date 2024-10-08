@@ -17,12 +17,12 @@ namespace SistemaBarbearia.Models
         public string nome { get; set; }
 
         [Required(ErrorMessage = "Campo obrigatorio")]
-        [StringLength(11)]
+        [StringLength(14)]
         [Display(Name = "Cpf: ")]
         public string cpf { get; set; }
 
         [Required(ErrorMessage = "Campo obrigatorio")]
-        [StringLength(11)]
+        [StringLength(14)]
         [Display(Name = "Telefone: ")]
         [DataType(DataType.PhoneNumber)]
         [RegularExpression(@"^\(?([0-9]{2})\)?[-. ]?([0-9]{5})[-. ]?([0-9]{4})$")]

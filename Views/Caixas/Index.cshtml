@@ -8,7 +8,11 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <form asp-action="Index">
+    <div class="form-group">
+        <input type="submit" value="Create New" class="btn btn-primary" />
+    </div>
+    </form>
 </p>
 <table class="table">
     <thead>
@@ -40,3 +44,10 @@
 }
     </tbody>
 </table>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
