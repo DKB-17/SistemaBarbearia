@@ -32,7 +32,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="trabalhoStatus" class="control-label"></label>
-                <select asp-for="trabalhoStatus" class="form-control"></select>
+                <select asp-for="trabalhoStatus" class="form-control" asp-items="ViewBag.sTrabalho"></select>
                 <span asp-validation-for="trabalhoStatus" class="text-danger"></span>
             </div>
             <div class="form-group">
