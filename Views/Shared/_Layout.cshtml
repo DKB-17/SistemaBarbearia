@@ -1,76 +1,107 @@
-﻿﻿
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Sistema Gerenciador de Alunos</title>
-    <link rel="icon" href="/img/logo_sem_fundo-removebg-preview__1.png" height="50 rem">
+    <title>@ViewData["Title"] - Sistema Barbearia</title>
+    <link rel="icon" href="/css/img/logo_sem_fundo.png" height="50 rem">
 
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/SistemaBarbearia.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
-<body class="bg-opacity-10 bg-success">
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-danger bg-opacity-10 border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <img class="d-inline" src="/img/logo_sem_fundo-removebg-preview__1.png" height="50rem" />
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="#Horario">Horario</a>
-                        </li>
-
-                        <li>
-
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Lista
+<body>
+    <header>    
+                <div class="menu">
+                    <nav class="navbar bg-dark rk fixed-top">
+                        <div class="container-fluid">
+                            <div class="mx-5">
+                                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="">
+                                    <img class="d-inline" src="/img/logo_sem_fundo.png" height="50rem"/>
+                                    <h4 class="d-inline text-white">Barbearia do Costa</h4>
+                                </a>
+                            </div>
+                            <div class="px-1">
+                            <a asp-area="" asp-controller="Agendas" asp-action="Create">
+                            <button class="navbar-toggler btn btn-outline-warning" type="button">
+                                
+                                <span class="navbar-toggler-icon text-center d-inline">
+                                    <span class="material-symbols-outlined text-white">
+                                        event
+                                    </span>
+                                </span>
+                                <p class="text-white d-inline">
+                                    AGENDAR AGORA
+                                </p>
+                                
+                            </button>
                             </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li>
-                                    <a class="dropdown-item" asp-area="" asp-controller="Agendas" asp-action="Index">Agendas</a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" asp-area="" asp-controller="Barbeiros" asp-action="Index">Barbeiros</a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" asp-area="" asp-controller="Caixas" asp-action="Index">Caixas</a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" asp-area="" asp-controller="Clientes" asp-action="Index">Clientes</a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" asp-area="" asp-controller="Horarios" asp-action="Index">Horarios</a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" asp-area="" asp-controller="Servicos" asp-action="Index">Servicos</a>
-                                </li>
-                        </li>
-                            </ul>
-                        </li>
-                        </li>
-                    </ul>
+                    <button class="navbar-toggler btn btn-outline-warning type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon">
+                            <span class="material-symbols-outlined text-white">
+                                menu
+                            </span>
+                        </span>
+                    </button>
+                    </div>
+                            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                                <div class="offcanvas-header mx-2">
+
+                                    <div class="offcanvas-title id="offcanvasNavbarLabel">
+                                        <img class="d-inline" src="/img/logo_sem_fundo.png" height="50rem" />
+                                    </div>
+                                    <div class="offcanvas-title id="offcanvasNavbarLabel">
+                                        <h4 class="d-inline text-dark">Barbearia do Costa</h4>
+                                    </div>
+                                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                </div>
+                                <div class="offcanvas-body mx-2">
+                                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link active" asp-area="" asp-controller="Home" asp-action="Privacy">Historia</a>
+                                        </li>
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                Objetos
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" asp-area="" asp-controller="Agendas" asp-action="Index">Agendas</a></li>
+                                                <li><a class="dropdown-item" asp-area="" asp-controller="Barbeiros" asp-action="Index">Barbeiros</a></li>
+                                                <!--<li>
+                                                    <hr class="dropdown-divider">
+                                                </li>-->
+                                                <li><a class="dropdown-item" asp-area="" asp-controller="Caixas" asp-action="Index">Caixas</a></li>
+                                                <li><a class="dropdown-item" asp-area="" asp-controller="Clientes" asp-action="Index">Clientes</a></li>
+                                                <li><a class="dropdown-item" asp-area="" asp-controller="Horarios" asp-action="Index">Horarios</a></li>
+                                                <li><a class="dropdown-item" asp-area="" asp-controller="Servicos" asp-action="Index">Servicos</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    <!--<form class="d-flex mt-3" role="search">
+                                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                                        <button class="btn btn-outline-success" type="submit">Search</button>
+                                    </form>-->
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
                 </div>
-            </div>
-        </nav>
+
+                
     </header>
-    <div class="container bg-opacity-25 bg-success">
-        <main role="main" class="pb-3">
+    <div class="container">
+        <main role="main" class="pb-5" style="margin-top: 5rem">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="navbar-light bg-danger bg-opacity-10 border-bottom box-shadow mt-3">
+    <footer class="bg-dark text-white">
         <div class="container">
-            &copy; 2024 - Barbearia - <a class="link-offset-2 link-underline link-underline-opacity-0" asp-area="" asp-controller="" asp-action="">Voltar</a>
+            &copy; 2024 - Barbearia do Costa - <a class="link-offset-2 link-underline link-underline-opacity-0 link-warning" asp-area="" asp-controller="Home" asp-action="">Voltar</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
