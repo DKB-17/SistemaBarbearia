@@ -42,11 +42,13 @@ namespace SistemaBarbearia.Controllers
             return View(caixa);
         }
 
+        /*
         // GET: Caixas/Create
         public IActionResult Create()
         {
             return View();
         }
+        */
 
         // POST: Index
         [HttpPost]
@@ -62,13 +64,14 @@ namespace SistemaBarbearia.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return RedirectToAction(nameof(Index));
+            return View(await _context.Caixas.ToListAsync());
         }
-
-            // POST: Caixas/Create
-            // To protect from overposting attacks, enable the specific properties you want to bind to.
-            // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-            [HttpPost]
+        
+        /*
+        // POST: Caixas/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("id,dia,lucro")] Caixa caixa)
         {
@@ -80,6 +83,8 @@ namespace SistemaBarbearia.Controllers
             }
             return View(caixa);
         }
+        */
+        
 
         // GET: Caixas/Edit/5
         public async Task<IActionResult> Edit(int? id)

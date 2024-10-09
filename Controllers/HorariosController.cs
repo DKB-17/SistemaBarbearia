@@ -53,11 +53,23 @@ namespace SistemaBarbearia.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,inicio,fim")] Horario horario)
+        public async Task<IActionResult> Create([Bind("id,inicio,fim")] Horario horario, Horario horario1, List<Horario> listaH)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(horario);
+                int contador = 0;
+                horario1.inicio = horario.inicio;
+                horario1.fim = horario.inicio.AddMinutes(30);
+                while (contador < 5)
+                {
+                    listaH.Add(horario1);
+                    horario1.inicio = horario1.fim;
+                    horario1.fim = horario1.inicio.AddMinutes(30);
+                    contador++;
+
+                }
+
+                _context.AddRange(listaH);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

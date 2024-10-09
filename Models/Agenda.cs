@@ -29,10 +29,8 @@ namespace SistemaBarbearia.Models
         [Display(Name = "Horario: ")]
         public int horarioId { get; set; }
 
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Dia agendado: ")]
-        public DateTime diaAgendado { get; set; }
+        public DateOnly diaAgendado { get; set; }
 
         [Display(Name = "Trabalho")]
         public trabalho trabalhoStatus { get; set; }

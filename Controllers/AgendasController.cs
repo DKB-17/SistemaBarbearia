@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SistemaBarbearia.Models;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 using static SistemaBarbearia.Models.Agenda;
 
 namespace SistemaBarbearia.Controllers
@@ -65,19 +66,32 @@ namespace SistemaBarbearia.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,barbeiroID,clienteId,horarioId,diaAgendado,trabalhoStatus,valor_total,tempo_total,idCaixa")] Agenda agenda)
+        public async Task<IActionResult> Create([Bind("id,barbeiroID,clienteId,horarioId,diaAgendado,trabalhoStatus,valor_total,tempo_total")] Agenda agenda/*, Caixa caixa*/)
         {
+            
             if (ModelState.IsValid)
             {
+                if (agenda.trabalhoStatus == trabalho.Feito)
+                {
+                    var cx = await _context.Caixas.FirstOrDefaultAsync(m => m.dia.Equals(agenda.diaAgendado));
+                    if (cx != null)
+                    {
+                        cx.lucro += agenda.valor_total;
+
+                        agenda.idCaixa = cx.id;
+
+                        _context.Caixas.Update(cx);;
+                    }
+                    /*else
+                    {   
+                        caixa.dia = agenda.diaAgendado;
+                        caixa.lucro = agenda.valor_total;
+                        _context.Caixas.Add(caixa);
+                    }*/
+                }
+
                 _context.Add(agenda);
                 await _context.SaveChangesAsync();
-
-                if (agenda.trabalhoStatus == trabalho.Feito)
-                { 
-
-                }
-                return RedirectToAction(nameof(Index));
-                
             }
             ViewData["barbeiroID"] = new SelectList(_context.Barbeiros, "id", "nome", agenda.barbeiroID);
             ViewData["clienteId"] = new SelectList(_context.Clientes, "id", "cpf", agenda.clienteId);
@@ -171,6 +185,17 @@ namespace SistemaBarbearia.Controllers
             var agenda = await _context.Agendas.FindAsync(id);
             if (agenda != null)
             {
+                var cx = await _context.Caixas.FirstOrDefaultAsync(m => m.dia.Equals(agenda.diaAgendado));
+                if (cx != null)
+                {
+                    cx.lucro -= agenda.valor_total;
+                    if (cx.lucro < 0)
+                    {
+                        cx.lucro = 0;
+                    }
+                    _context.Update(cx);
+                }
+
                 _context.Agendas.Remove(agenda);
             }
 
