@@ -34,9 +34,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.tempo_total)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.idCaixa)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -63,9 +60,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.tempo_total)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.idCaixa)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |

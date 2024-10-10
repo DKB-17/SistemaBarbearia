@@ -12,8 +12,8 @@ using SistemaBarbearia.Models;
 namespace SistemaBarbearia.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20241008145425_aumentocaractCliente")]
-    partial class aumentocaractCliente
+    [Migration("20241010142241_modServico")]
+    partial class modServico
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,8 +42,8 @@ namespace SistemaBarbearia.Migrations
                     b.Property<int>("clienteId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("diaAgendado")
-                        .HasColumnType("datetime2");
+                    b.Property<DateOnly>("diaAgendado")
+                        .HasColumnType("date");
 
                     b.Property<int>("horarioId")
                         .HasColumnType("int");
@@ -51,8 +51,8 @@ namespace SistemaBarbearia.Migrations
                     b.Property<int>("idCaixa")
                         .HasColumnType("int");
 
-                    b.Property<int>("tempo_total")
-                        .HasColumnType("int");
+                    b.Property<double>("tempo_total")
+                        .HasColumnType("float");
 
                     b.Property<int>("trabalhoStatus")
                         .HasColumnType("int");
@@ -112,8 +112,8 @@ namespace SistemaBarbearia.Migrations
                     b.Property<DateOnly>("dia")
                         .HasColumnType("date");
 
-                    b.Property<float>("lucro")
-                        .HasColumnType("real");
+                    b.Property<double>("lucro")
+                        .HasColumnType("float");
 
                     b.HasKey("id");
 
@@ -180,11 +180,11 @@ namespace SistemaBarbearia.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("minutos")
-                        .HasColumnType("int");
+                    b.Property<TimeOnly>("minutos")
+                        .HasColumnType("time");
 
-                    b.Property<double>("valor")
-                        .HasColumnType("float");
+                    b.Property<float>("valor")
+                        .HasColumnType("real");
 
                     b.HasKey("id");
 

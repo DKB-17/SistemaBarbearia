@@ -12,8 +12,8 @@ using SistemaBarbearia.Models;
 namespace SistemaBarbearia.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20241009113702_modAgenda")]
-    partial class modAgenda
+    [Migration("20241010135302_inicial")]
+    partial class inicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -180,8 +180,8 @@ namespace SistemaBarbearia.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("minutos")
-                        .HasColumnType("int");
+                    b.Property<TimeOnly>("minutos")
+                        .HasColumnType("time");
 
                     b.Property<double>("valor")
                         .HasColumnType("float");

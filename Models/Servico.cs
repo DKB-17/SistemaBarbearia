@@ -18,11 +18,11 @@ namespace SistemaBarbearia.Models
 
         [Required]
         [Display(Name = "Valor: ")]
-        public double valor { get; set; }
+        public float valor { get; set; }
 
         [Required]
         [Display(Name = "Tempo para fazer: ")]
-        public int minutos { get; set; }
+        public TimeOnly minutos { get; set; }
 
         public ICollection<ServicoAgenda> servicosAgendas { get; set; }
     }

@@ -56,7 +56,7 @@ namespace SistemaBarbearia.Controllers
             ViewBag.sTrabalho = sTrabalho;
 
             ViewData["barbeiroID"] = new SelectList(_context.Barbeiros, "id", "nome");
-            ViewData["clienteId"] = new SelectList(_context.Clientes, "id", "cpf");
+            ViewBag["Servicos"] = new SelectList(_context.Servicos, "id", "descricao");
             ViewData["horarioId"] = new SelectList(_context.Horarios, "id", "inicio");
             return View();
         }

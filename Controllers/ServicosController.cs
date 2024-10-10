@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Humanizer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -57,6 +58,8 @@ namespace SistemaBarbearia.Controllers
         {
             if (ModelState.IsValid)
             {
+                servico.descricao = servico.descricao.ElementAt(0).ToString().ToUpper() + servico.descricao.Substring(1).ToLower();
+                servico.valor = float.Parse(servico.valor.ToString("F2"));
                 _context.Add(servico);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -96,6 +99,8 @@ namespace SistemaBarbearia.Controllers
             {
                 try
                 {
+                    servico.descricao = servico.descricao.ElementAt(0).ToString().ToUpper() + servico.descricao.Substring(1).ToLower();
+                    servico.valor = float.Parse(servico.valor.ToString("F2"));
                     _context.Update(servico);
                     await _context.SaveChangesAsync();
                 }

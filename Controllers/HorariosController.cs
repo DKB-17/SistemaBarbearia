@@ -53,25 +53,16 @@ namespace SistemaBarbearia.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,inicio,fim")] Horario horario, Horario horario1, List<Horario> listaH)
+        public async Task<IActionResult> Create([Bind("id,inicio,fim")] Horario horario)
         {
             if (ModelState.IsValid)
             {
-                int contador = 0;
-                horario1.inicio = horario.inicio;
-                horario1.fim = horario.inicio.AddMinutes(30);
-                while (contador < 5)
+                if (!HorarioExists(horario.inicio))
                 {
-                    listaH.Add(horario1);
-                    horario1.inicio = horario1.fim;
-                    horario1.fim = horario1.inicio.AddMinutes(30);
-                    contador++;
-
-                }
-
-                _context.AddRange(listaH);
+                _context.Add(horario);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index));  
+                }
             }
             return View(horario);
         }
@@ -108,8 +99,11 @@ namespace SistemaBarbearia.Controllers
             {
                 try
                 {
-                    _context.Update(horario);
-                    await _context.SaveChangesAsync();
+                    if (!HorarioExists(horario.inicio))
+                    {
+                        _context.Update(horario);
+                        await _context.SaveChangesAsync();
+                    }
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -163,6 +157,11 @@ namespace SistemaBarbearia.Controllers
         private bool HorarioExists(int id)
         {
             return _context.Horarios.Any(e => e.id == id);
+        }
+
+        private bool HorarioExists(TimeOnly intervalor)
+        {
+            return _context.Horarios.Any(e => intervalor.IsBetween(e.inicio, e.fim));
         }
     }
 }

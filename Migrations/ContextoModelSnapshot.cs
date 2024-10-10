@@ -177,11 +177,11 @@ namespace SistemaBarbearia.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("minutos")
-                        .HasColumnType("int");
+                    b.Property<TimeOnly>("minutos")
+                        .HasColumnType("time");
 
-                    b.Property<double>("valor")
-                        .HasColumnType("float");
+                    b.Property<float>("valor")
+                        .HasColumnType("real");
 
                     b.HasKey("id");
 

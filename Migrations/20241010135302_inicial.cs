@@ -33,7 +33,7 @@ namespace SistemaBarbearia.Migrations
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     dia = table.Column<DateOnly>(type: "date", nullable: false),
-                    lucro = table.Column<float>(type: "real", nullable: false)
+                    lucro = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -47,8 +47,8 @@ namespace SistemaBarbearia.Migrations
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     nome = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
-                    cpf = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: false),
-                    telefone = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: false)
+                    cpf = table.Column<string>(type: "nvarchar(14)", maxLength: 14, nullable: false),
+                    telefone = table.Column<string>(type: "nvarchar(14)", maxLength: 14, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -77,7 +77,7 @@ namespace SistemaBarbearia.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     descricao = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     valor = table.Column<double>(type: "float", nullable: false),
-                    minutos = table.Column<int>(type: "int", nullable: false)
+                    minutos = table.Column<TimeOnly>(type: "time", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -93,10 +93,10 @@ namespace SistemaBarbearia.Migrations
                     barbeiroID = table.Column<int>(type: "int", nullable: false),
                     clienteId = table.Column<int>(type: "int", nullable: false),
                     horarioId = table.Column<int>(type: "int", nullable: false),
-                    diaAgendado = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    diaAgendado = table.Column<DateOnly>(type: "date", nullable: false),
                     trabalhoStatus = table.Column<int>(type: "int", nullable: false),
                     valor_total = table.Column<double>(type: "float", nullable: false),
-                    tempo_total = table.Column<int>(type: "int", nullable: false),
+                    tempo_total = table.Column<double>(type: "float", nullable: false),
                     idCaixa = table.Column<int>(type: "int", nullable: false),
                     caixaid = table.Column<int>(type: "int", nullable: true)
                 },
