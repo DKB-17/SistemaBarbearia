@@ -13,7 +13,7 @@ namespace SistemaBarbearia.Models
 
         [Required(ErrorMessage = "Campo obrigatorio")]
         [StringLength(70, ErrorMessage = "Tamanho maximo de 70 caracteres")]
-        [Display(Name = "Nome: ")]
+        [Display(Name = "Cliente: ")]
         public string nome { get; set; }
 
         [Required(ErrorMessage = "Campo obrigatorio")]

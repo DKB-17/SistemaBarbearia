@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SistemaBarbearia.Models.Agenda>
+﻿@model List<Agenda>
 
 @{
     ViewData["Title"] = "Index";
@@ -11,94 +11,73 @@
     <a asp-action="Create" class="btn btn-primary">Agendar Horario</a>
 </p>
 
-<h1>
-    Selecione um servico para ver os agendamentos
-</h1>
-<form asp-action="ChangeServico" method="post" id="agendaForm">
-    <div>
-        <label class="form-label">Selecione um Servico</label>
-        <select class="form-control" id="agendaSelect" name="agendaServico">
-            <option value="">Selecione um Servico</option>
-
-            @foreach (Servico servico in ViewBag.Servicos)
-            {
-                if (ViewBag.SelectedAgenda != null && ViewBag.SelectedAgenda == servico.id)
-                {
-                    <option value="@servico.id" selected>@servico.descricao</option>
-                }
-                else
-                {
-                    <option value="@servico.id">@servico.descricao</option>
-
-                }
-
-            }
-        </select>
-    </div>
-    <script>
-        var selectElement = document.getElementById('agenciaSelect');
-
-        selectElement.addEventListener('change', function () {
-            var formElement = document.getElementById('agenciaForm');
-            formElement.submit();
-        })
-    </script>
-
-</form>
-
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.barbeiro)
+                Barbeiro:
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.cliente)
+                Cliente:
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.horario)
+                Inicio:
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.diaAgendado)
+                Fim:
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.trabalhoStatus)
+                Dia Agendado:
             </th>
             <th>
-                
+                Status:
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.valor_total)
+                Servicos:
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.tempo_total)
+                Valor total:
+            </th>
+            <th>
+                Tempo total:
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
+
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.barbeiro.cpf)
+                @item.barbeiro.nome
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.cliente.cpf)
+                @item.cliente.nome
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.horario.id)
+                @item.horario.inicio
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.diaAgendado)
+                @item.horario.fim
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.trabalhoStatus)
+                @item.diaAgendado
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.valor_total)
+                @item.trabalhoStatus
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.tempo_total)
+                    @foreach (var servico in item.servicos)
+                    {
+                        <p>@servico.descricao |</p>
+                    }
+
+            </td>
+            <td>
+                @item.valor_total
+            </td>
+            <td>
+                @item.tempo_total
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
@@ -106,6 +85,7 @@
                 <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
             </td>
         </tr>
+        
 }
     </tbody>
 </table>

@@ -25,29 +25,13 @@ namespace SistemaBarbearia.Controllers
         {
             var contexto = _context.Agendas.Include(a => a.barbeiro)
                                             .Include(a => a.cliente)
-                                            .Include(a => a.horario);
+                                            .Include(a => a.horario)
+                                            .Include(a => a.servicos);
+                                            
             ViewBag.Agendas = await _context.Agendas.ToListAsync();
             ViewBag.Servicos = await _context.Servicos.ToListAsync();
             return View(await contexto.ToListAsync());
         }
-
-        public async Task<IActionResult> ChangeServico(int servicoID)
-        {
-            List<Agenda> agendasDoServico;
-            ViewBag.Agendas = await _context.Agendas.ToListAsync();
-            ViewBag.SelectedAgencia = servicoID;
-
-            if (servicoID != 0)
-            {
-                agendasDoServico = await _context.Agendas.Where(s => s.servicos.Any(c => c.id == servicoID)).ToListAsync();
-            }
-            else
-            {
-                agendasDoServico = await _context.Agendas.ToListAsync();
-            }
-            return View("Index", agendasDoServico);
-        }
-
 
         // GET: Agendas/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -88,7 +72,7 @@ namespace SistemaBarbearia.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id, nome, cpf, telefone")] Cliente cliente, [Bind("id,barbeiroID,clienteId,horarioId,diaAgendado,trabalhoStatus,valor_total")] Agenda agenda, string[] servicosCheck)
+        public async Task<IActionResult> Create([Bind("id, nome, cpf, telefone")] Cliente cliente, [Bind("id,barbeiroID,clienteId,horarioId,diaAgendado,valor_total")] Agenda agenda, string[] servicosCheck)
         {
             
             if (ModelState.IsValid)
@@ -108,15 +92,14 @@ namespace SistemaBarbearia.Controllers
                     _context.SaveChanges();
                 }
                 agenda.clienteId = _context.Clientes.FirstOrDefault(s => s.cpf == cliente.cpf).id;
+                agenda.trabalhoStatus = trabalho.Falta;
                 _context.Add(agenda);
                 await _context.SaveChangesAsync();
             }
             //ViewData["barbeiroID"] = new SelectList(_context.Barbeiros, "id", "nome", agenda.barbeiroID);
             //ViewData["clienteId"] = new SelectList(_context.Clientes, "id", "cpf", agenda.clienteId);
             //ViewData["horarioId"] = new SelectList(_context.Horarios, "id", "inicio", agenda.horarioId);
-            List<Agenda> agendas = await _context.Agendas.ToListAsync();
-            ViewBag.Servicos = await _context.Servicos.ToListAsync();
-            return View("Index", agendas);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Agendas/Edit/5
