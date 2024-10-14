@@ -7,6 +7,11 @@ namespace SistemaBarbearia.Models
     public class Agenda
     {
 
+        public Agenda()
+        {
+            servicos = new List<Servico>();
+        }
+
         public enum trabalho { Feito, Falta, Remarcado, Cancelado}
 
         [Display(Name = "ID: ")]
@@ -41,7 +46,7 @@ namespace SistemaBarbearia.Models
         public int idCaixa { get; set; }
         public Caixa caixa { get; set; }
 
-        public ICollection<ServicoAgenda> servicosAgendas { get; set; }
+        public List<Servico> servicos { get; set; }
 
     }
 }

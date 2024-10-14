@@ -76,7 +76,7 @@ namespace SistemaBarbearia.Migrations
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     descricao = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    valor = table.Column<double>(type: "float", nullable: false),
+                    valor = table.Column<float>(type: "real", nullable: false),
                     minutos = table.Column<TimeOnly>(type: "time", nullable: false)
                 },
                 constraints: table =>
@@ -129,27 +129,24 @@ namespace SistemaBarbearia.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ServicosAgendas",
+                name: "AgendaServico",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    desconto = table.Column<int>(type: "int", nullable: false),
-                    agendaID = table.Column<int>(type: "int", nullable: false),
-                    servicoID = table.Column<int>(type: "int", nullable: false)
+                    agendasid = table.Column<int>(type: "int", nullable: false),
+                    servicosid = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ServicosAgendas", x => x.id);
+                    table.PrimaryKey("PK_AgendaServico", x => new { x.agendasid, x.servicosid });
                     table.ForeignKey(
-                        name: "FK_ServicosAgendas_Agendas_agendaID",
-                        column: x => x.agendaID,
+                        name: "FK_AgendaServico_Agendas_agendasid",
+                        column: x => x.agendasid,
                         principalTable: "Agendas",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ServicosAgendas_Servicos_servicoID",
-                        column: x => x.servicoID,
+                        name: "FK_AgendaServico_Servicos_servicosid",
+                        column: x => x.servicosid,
                         principalTable: "Servicos",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -176,21 +173,16 @@ namespace SistemaBarbearia.Migrations
                 column: "horarioId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ServicosAgendas_agendaID",
-                table: "ServicosAgendas",
-                column: "agendaID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ServicosAgendas_servicoID",
-                table: "ServicosAgendas",
-                column: "servicoID");
+                name: "IX_AgendaServico_servicosid",
+                table: "AgendaServico",
+                column: "servicosid");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ServicosAgendas");
+                name: "AgendaServico");
 
             migrationBuilder.DropTable(
                 name: "Agendas");

@@ -6,6 +6,11 @@ namespace SistemaBarbearia.Models
     [Table("Servicos")]
     public class Servico
     {
+        public Servico()
+        {
+            agendas = new List<Agenda>();
+        }
+
         [Display(Name = "ID: ")]
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -24,6 +29,6 @@ namespace SistemaBarbearia.Models
         [Display(Name = "Tempo para fazer: ")]
         public TimeOnly minutos { get; set; }
 
-        public ICollection<ServicoAgenda> servicosAgendas { get; set; }
+        public List<Agenda> agendas { get; set; }
     }
 }

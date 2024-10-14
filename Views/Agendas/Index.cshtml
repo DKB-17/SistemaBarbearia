@@ -8,8 +8,44 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-primary">Agendar Horario</a>
 </p>
+
+<h1>
+    Selecione um servico para ver os agendamentos
+</h1>
+<form asp-action="ChangeServico" method="post" id="agendaForm">
+    <div>
+        <label class="form-label">Selecione um Servico</label>
+        <select class="form-control" id="agendaSelect" name="agendaServico">
+            <option value="">Selecione um Servico</option>
+
+            @foreach (Servico servico in ViewBag.Servicos)
+            {
+                if (ViewBag.SelectedAgenda != null && ViewBag.SelectedAgenda == servico.id)
+                {
+                    <option value="@servico.id" selected>@servico.descricao</option>
+                }
+                else
+                {
+                    <option value="@servico.id">@servico.descricao</option>
+
+                }
+
+            }
+        </select>
+    </div>
+    <script>
+        var selectElement = document.getElementById('agenciaSelect');
+
+        selectElement.addEventListener('change', function () {
+            var formElement = document.getElementById('agenciaForm');
+            formElement.submit();
+        })
+    </script>
+
+</form>
+
 <table class="table">
     <thead>
         <tr>
@@ -27,6 +63,9 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.trabalhoStatus)
+            </th>
+            <th>
+                
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.valor_total)

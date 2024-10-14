@@ -23,9 +23,31 @@ namespace SistemaBarbearia.Controllers
         // GET: Agendas
         public async Task<IActionResult> Index()
         {
-            var contexto = _context.Agendas.Include(a => a.barbeiro).Include(a => a.cliente).Include(a => a.horario);
+            var contexto = _context.Agendas.Include(a => a.barbeiro)
+                                            .Include(a => a.cliente)
+                                            .Include(a => a.horario);
+            ViewBag.Agendas = await _context.Agendas.ToListAsync();
+            ViewBag.Servicos = await _context.Servicos.ToListAsync();
             return View(await contexto.ToListAsync());
         }
+
+        public async Task<IActionResult> ChangeServico(int servicoID)
+        {
+            List<Agenda> agendasDoServico;
+            ViewBag.Agendas = await _context.Agendas.ToListAsync();
+            ViewBag.SelectedAgencia = servicoID;
+
+            if (servicoID != 0)
+            {
+                agendasDoServico = await _context.Agendas.Where(s => s.servicos.Any(c => c.id == servicoID)).ToListAsync();
+            }
+            else
+            {
+                agendasDoServico = await _context.Agendas.ToListAsync();
+            }
+            return View("Index", agendasDoServico);
+        }
+
 
         // GET: Agendas/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -49,14 +71,14 @@ namespace SistemaBarbearia.Controllers
         }
 
         // GET: Agendas/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
 
             var sTrabalho = Enum.GetValues(typeof(trabalho)).Cast<trabalho>().Select(e => new SelectListItem { Value = e.ToString(), Text = e.ToString() });
             ViewBag.sTrabalho = sTrabalho;
 
             ViewData["barbeiroID"] = new SelectList(_context.Barbeiros, "id", "nome");
-            ViewBag["Servicos"] = new SelectList(_context.Servicos, "id", "descricao");
+            ViewBag.Servicos = await _context.Servicos.ToListAsync();
             ViewData["horarioId"] = new SelectList(_context.Horarios, "id", "inicio");
             return View();
         }
@@ -66,37 +88,35 @@ namespace SistemaBarbearia.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,barbeiroID,clienteId,horarioId,diaAgendado,trabalhoStatus,valor_total,tempo_total")] Agenda agenda/*, Caixa caixa*/)
+        public async Task<IActionResult> Create([Bind("id, nome, cpf, telefone")] Cliente cliente, [Bind("id,barbeiroID,clienteId,horarioId,diaAgendado,trabalhoStatus,valor_total")] Agenda agenda, string[] servicosCheck)
         {
             
             if (ModelState.IsValid)
             {
-                if (agenda.trabalhoStatus == trabalho.Feito)
+                
+                if (servicosCheck != null)
                 {
-                    var cx = await _context.Caixas.FirstOrDefaultAsync(m => m.dia.Equals(agenda.diaAgendado));
-                    if (cx != null)
+                    foreach (var servicoId in servicosCheck)
                     {
-                        cx.lucro += agenda.valor_total;
-
-                        agenda.idCaixa = cx.id;
-
-                        _context.Caixas.Update(cx);;
+                        Servico s = _context.Servicos.Find(int.Parse(servicoId));
+                        agenda.servicos.Add(s);
                     }
-                    /*else
-                    {   
-                        caixa.dia = agenda.diaAgendado;
-                        caixa.lucro = agenda.valor_total;
-                        _context.Caixas.Add(caixa);
-                    }*/
                 }
-
+                if (!(_context.Clientes.Any(c => c.cpf == cliente.cpf)))
+                {
+                    _context.Clientes.Add(cliente);
+                    _context.SaveChanges();
+                }
+                agenda.clienteId = _context.Clientes.FirstOrDefault(s => s.cpf == cliente.cpf).id;
                 _context.Add(agenda);
                 await _context.SaveChangesAsync();
             }
-            ViewData["barbeiroID"] = new SelectList(_context.Barbeiros, "id", "nome", agenda.barbeiroID);
-            ViewData["clienteId"] = new SelectList(_context.Clientes, "id", "cpf", agenda.clienteId);
-            ViewData["horarioId"] = new SelectList(_context.Horarios, "id", "inicio", agenda.horarioId);
-            return View(agenda);
+            //ViewData["barbeiroID"] = new SelectList(_context.Barbeiros, "id", "nome", agenda.barbeiroID);
+            //ViewData["clienteId"] = new SelectList(_context.Clientes, "id", "cpf", agenda.clienteId);
+            //ViewData["horarioId"] = new SelectList(_context.Horarios, "id", "inicio", agenda.horarioId);
+            List<Agenda> agendas = await _context.Agendas.ToListAsync();
+            ViewBag.Servicos = await _context.Servicos.ToListAsync();
+            return View("Index", agendas);
         }
 
         // GET: Agendas/Edit/5

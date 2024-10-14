@@ -22,6 +22,21 @@ namespace SistemaBarbearia.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("AgendaServico", b =>
+                {
+                    b.Property<int>("agendasid")
+                        .HasColumnType("int");
+
+                    b.Property<int>("servicosid")
+                        .HasColumnType("int");
+
+                    b.HasKey("agendasid", "servicosid");
+
+                    b.HasIndex("servicosid");
+
+                    b.ToTable("AgendaServico");
+                });
+
             modelBuilder.Entity("SistemaBarbearia.Models.Agenda", b =>
                 {
                     b.Property<int>("id")
@@ -188,30 +203,19 @@ namespace SistemaBarbearia.Migrations
                     b.ToTable("Servicos");
                 });
 
-            modelBuilder.Entity("SistemaBarbearia.Models.ServicoAgenda", b =>
+            modelBuilder.Entity("AgendaServico", b =>
                 {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.HasOne("SistemaBarbearia.Models.Agenda", null)
+                        .WithMany()
+                        .HasForeignKey("agendasid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
-
-                    b.Property<int>("agendaID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("desconto")
-                        .HasColumnType("int");
-
-                    b.Property<int>("servicoID")
-                        .HasColumnType("int");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("agendaID");
-
-                    b.HasIndex("servicoID");
-
-                    b.ToTable("ServicosAgendas");
+                    b.HasOne("SistemaBarbearia.Models.Servico", null)
+                        .WithMany()
+                        .HasForeignKey("servicosid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("SistemaBarbearia.Models.Agenda", b =>
@@ -247,30 +251,6 @@ namespace SistemaBarbearia.Migrations
                     b.Navigation("horario");
                 });
 
-            modelBuilder.Entity("SistemaBarbearia.Models.ServicoAgenda", b =>
-                {
-                    b.HasOne("SistemaBarbearia.Models.Agenda", "agenda")
-                        .WithMany("servicosAgendas")
-                        .HasForeignKey("agendaID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SistemaBarbearia.Models.Servico", "Servico")
-                        .WithMany("servicosAgendas")
-                        .HasForeignKey("servicoID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Servico");
-
-                    b.Navigation("agenda");
-                });
-
-            modelBuilder.Entity("SistemaBarbearia.Models.Agenda", b =>
-                {
-                    b.Navigation("servicosAgendas");
-                });
-
             modelBuilder.Entity("SistemaBarbearia.Models.Caixa", b =>
                 {
                     b.Navigation("Agendas");
@@ -279,11 +259,6 @@ namespace SistemaBarbearia.Migrations
             modelBuilder.Entity("SistemaBarbearia.Models.Cliente", b =>
                 {
                     b.Navigation("Agendas");
-                });
-
-            modelBuilder.Entity("SistemaBarbearia.Models.Servico", b =>
-                {
-                    b.Navigation("servicosAgendas");
                 });
 #pragma warning restore 612, 618
         }

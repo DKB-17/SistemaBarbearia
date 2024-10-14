@@ -11,56 +11,82 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="barbeiroID" class="control-label"></label>
-                <select asp-for="barbeiroID" class ="form-control" asp-items="ViewBag.barbeiroID"></select>
-            </div>
+
+            
             <div class="form-group">
                 <label asp-for="cliente.nome" class="control-label"></label>
-                <input asp-for="cliente.nome" type="text" acceptclass="form-control" />
+                <input asp-for="cliente.nome" type="text" class="form-control" />
                 <span asp-validation-for="cliente.nome" class="text-danger"></span>
             </div>
+            
             <div class="form-group">
                 <label asp-for="cliente.cpf" class="control-label"></label>
                 <input asp-for="cliente.cpf" type="text" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" class="form-control" />
                 <span asp-validation-for="cliente.cpf" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="cliente.telefone" class="control-label"></label>
                 <input asp-for="cliente.telefone" class="form-control" />
                 <span asp-validation-for="cliente.telefone" class="text-danger"></span>
             </div>
+
+            <div class="form-group">
+                <label asp-for="barbeiroID" class="control-label"></label>
+                <select asp-for="barbeiroID" class="form-control" asp-items="ViewBag.barbeiroID"></select>
+            </div>
+
+            <div class="form-group">
+            <h5>Servicos que deseja fazer</h5>
+            @foreach (var servico in ViewBag.Servicos as List<Servico>)
+            {
+                <div class="form-check" id="servico">
+                    <input type="checkbox" class="form-check-input" id="@servico.id" name="servicosCheck" value="@servico.id" />
+                    <label class="form-check-label" for="@servico.id">@servico.descricao</label>
+                </div>    
+            
+            }
+            </div>
+
             <div class="form-group">
                 <label asp-for="horarioId" class="control-label"></label>
                 <select asp-for="horarioId" class ="form-control" asp-items="ViewBag.horarioId"></select>
             </div>
+
             <div class="form-group">
                 <label asp-for="diaAgendado" class="control-label"></label>
                 <input asp-for="diaAgendado" type="date" class="form-control" />
                 <span asp-validation-for="diaAgendado" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="trabalhoStatus" class="control-label"></label>
-                <select asp-for="trabalhoStatus" class="form-control" asp-items="ViewBag.sTrabalho"></select>
-                <span asp-validation-for="trabalhoStatus" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="servicosAgendas" class="control-label"></label>
-                <select asp-for="servicosAgendas" class="form-control" asp-items="ViewBag.Servicos"></select>
-                <span asp-validation-for="servicosAgendas" class="text-danger"></span>
-            </div>
+
             <div class="form-group">
                 <label asp-for="valor_total" class="control-label"></label>
-                <input asp-for="valor_total" class="form-control" />
+                <input asp-for="valor_total" id="valorAgendamento" value="0" class="form-control" disabled/>
                 <span asp-validation-for="valor_total" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="tempo_total" class="control-label"></label>
-                <input asp-for="tempo_total" class="form-control" />
-                <span asp-validation-for="tempo_total" class="text-danger"></span>
-            </div>
+            <script>
+                var soma = 0;
+                const total = document.getElementById("valorAgendamento");
+                const listaCheckbox = document.querySelectorAll('input[type="checkbox"]');
+                for (let i = 0; i < listaCheckbox.length; i++) {
+                    listaCheckbox[i].addEventListener("click", function() {
+                        if (listaCheckbox[i].checked) {
+                            soma = parseFloat(soma) + parseFloat(listaCheckbox[i].value);
+                            total.value = soma.toFixed(2);
+                        } 
+                        else
+                        {
+                        soma = parseFloat(soma) - parseFloat(listaCheckbox[i].value);
+                        total.value = soma.toFixed(2);
+                        }
+                    });
+                };
+            </script>
+
+            <input type="hidden" asp-for="trabalhoStatus" value="2" disabled/>
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
