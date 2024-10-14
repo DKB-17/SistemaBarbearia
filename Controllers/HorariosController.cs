@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using SistemaBarbearia.Migrations;
 using SistemaBarbearia.Models;
 
 namespace SistemaBarbearia.Controllers
@@ -53,18 +54,39 @@ namespace SistemaBarbearia.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,inicio,fim")] Horario horario)
+        public async Task<IActionResult> Create([Bind("id,inicio,fim")] Horario Hrs, TimeOnly intervalo)
         {
             if (ModelState.IsValid)
             {
-                if (!HorarioExists(horario.inicio))
+                List<Horario> listaHrs = new List<Horario>();
+                listaHrs.Add(new Horario() {inicio = Hrs.inicio, fim = Hrs.inicio.AddMinutes(intervalo.Minute) });
+                if (!HorarioExists(listaHrs[0].inicio) && !HorarioExists(listaHrs[0].fim))
                 {
-                _context.Add(horario);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));  
+                    for (int i = 0; listaHrs[i].fim < Hrs.fim ; i++)
+                    {
+                        listaHrs.Add(new Horario() {inicio = listaHrs[i].fim,fim = listaHrs[i].fim.AddMinutes(intervalo.Minute)});
+
+                    }
+                    
+                    _context.AddRange(listaHrs);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));  
                 }
             }
-            return View(horario);
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> DeleteAll()
+        {
+            var horario = await _context.Horarios.ToListAsync();
+            if (horario != null)
+            {
+                _context.Horarios.RemoveRange(horario);
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+
         }
 
         // GET: Horarios/Edit/5

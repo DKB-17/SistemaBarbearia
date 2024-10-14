@@ -15,13 +15,17 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="inicio" class="control-label"></label>
-                <input asp-for="inicio" class="form-control" />
+                <input asp-for="inicio" type="time" class="form-control" />
                 <span asp-validation-for="inicio" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="fim" class="control-label"></label>
-                <input asp-for="fim" class="form-control" />
+                <input asp-for="fim" type="time" class="form-control" />
                 <span asp-validation-for="fim" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label name="intervalo" class="control=label"></label>
+                <input name="intervalo" type="time" class="form-control" />
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

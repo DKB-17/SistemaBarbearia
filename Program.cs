@@ -24,6 +24,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Agendas}/{action=Index}/{id?}");
+    pattern: "{controller=Horarios}/{action=Create}/{id?}");
 
 app.Run();
