@@ -12,7 +12,7 @@ namespace SistemaBarbearia.Models
             servicos = new List<Servico>();
         }
 
-        public enum trabalho { Feito, Falta, Remarcado, Cancelado}
+        public enum Trabalho {Falta = 0,Feito = 1, Remarcado = 2, Cancelado = 3}
 
         [Display(Name = "ID: ")]
         [Key]
@@ -38,7 +38,7 @@ namespace SistemaBarbearia.Models
         public DateOnly diaAgendado { get; set; }
 
         [Display(Name = "Trabalho")]
-        public trabalho trabalhoStatus { get; set; }
+        public Trabalho trabalhoStatus { get; set; }
 
         public double valor_total { get; set; }
         public double tempo_total { get; set; }

@@ -58,7 +58,7 @@ namespace SistemaBarbearia.Controllers
         public async Task<IActionResult> Create()
         {
 
-            var sTrabalho = Enum.GetValues(typeof(trabalho)).Cast<trabalho>().Select(e => new SelectListItem { Value = e.ToString(), Text = e.ToString() });
+            var sTrabalho = Enum.GetValues(typeof(Trabalho)).Cast<Trabalho>().Select(e => new SelectListItem { Value = e.ToString(), Text = e.ToString() });
             ViewBag.sTrabalho = sTrabalho;
 
             ViewData["barbeiroID"] = new SelectList(_context.Barbeiros, "id", "nome");
@@ -92,7 +92,7 @@ namespace SistemaBarbearia.Controllers
                     _context.SaveChanges();
                 }
                 agenda.clienteId = _context.Clientes.FirstOrDefault(s => s.cpf == cliente.cpf).id;
-                agenda.trabalhoStatus = trabalho.Falta;
+                agenda.trabalhoStatus = Trabalho.Falta;
                 _context.Add(agenda);
                 await _context.SaveChangesAsync();
             }
@@ -119,6 +119,33 @@ namespace SistemaBarbearia.Controllers
             ViewData["clienteId"] = new SelectList(_context.Clientes, "id", "cpf", agenda.clienteId);
             ViewData["horarioId"] = new SelectList(_context.Horarios, "id", "id", agenda.horarioId);
             return View(agenda);
+        }
+
+        public async Task<IActionResult> UpdateStatus(int id, int status)
+        {
+            Agenda ag = _context.Agendas.FirstOrDefault(s => s.id == id);
+                try
+                    {
+                    if (ag != null)
+                    {
+                    ag.trabalhoStatus = (Trabalho)status;
+                    }
+                    _context.Update(ag);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!AgendaExists(id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            
         }
 
         // POST: Agendas/Edit/5

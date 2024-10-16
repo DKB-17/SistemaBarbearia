@@ -21,6 +21,7 @@ namespace SistemaBarbearia.Controllers
         public async Task<IActionResult> Index()
         {
             
+
             return View(await _context.Horarios.ToListAsync());
         
         }

@@ -46,8 +46,28 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
-
-        <tr>
+            var fundo = "";
+            @if (item.trabalhoStatus == Agenda.Trabalho.Feito)
+            {
+                fundo = "table-success";
+            }
+            else if (item.trabalhoStatus == Agenda.Trabalho.Falta)
+            {
+                fundo = "table-danger";
+            }
+            else if (item.trabalhoStatus == Agenda.Trabalho.Remarcado)
+            {
+                fundo = "table-warning";
+            }
+            else if (item.trabalhoStatus == Agenda.Trabalho.Cancelado)
+            {
+                fundo = "table-dark";
+            }
+            else
+            {
+                fundo = "";    
+            }
+            <tr class="@fundo">
             <td>
                 @item.barbeiro.nome
             </td>
@@ -64,12 +84,21 @@
                 @item.diaAgendado
             </td>
             <td>
-                @item.trabalhoStatus
+                <form asp-action="UpdateStatus" asp-route-id="@item.id">
+                        <span class="d-block p-2">
+                            <button type="submit" name="status" value="0" class="btn btn-danger">Falta</button>
+                            <button type="submit" name="status" value="3" class="btn btn-dark">Cancelar</button>
+                        </span>
+                        <span class="d-block p-2">
+                            <button type="submit" name="status" value="1" class="btn btn-success">Feito</button>
+                            <button type="submit" name="status" value="2" class="btn btn-warning">Remarcar</button>
+                        </span>
+                </form>
             </td>
             <td>
                     @foreach (var servico in item.servicos)
                     {
-                        <p>@servico.descricao |</p>
+                        <span class="d-block p-2">@servico.descricao</span>
                     }
 
             </td>
